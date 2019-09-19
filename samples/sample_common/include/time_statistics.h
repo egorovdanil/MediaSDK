@@ -26,7 +26,7 @@ or https://software.intel.com/en-us/media-client-solutions-support.
 #include <vector>
 #include <stdio.h>
 
-#pragma warning(disable:4100)
+//#pragma warning(disable:4100)
 
 class CTimeStatisticsReal
 {

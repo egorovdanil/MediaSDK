@@ -33,7 +33,7 @@ or https://software.intel.com/en-us/media-client-solutions-support.
 #include "mfxjpeg.h"
 #include "mfxvp8.h"
 
-#pragma warning( disable : 4748 )
+//#pragma warning( disable : 4748 )
 
 msdk_tick CTimer::frequency = 0;
 msdk_tick CTimeStatisticsReal::frequency = 0;

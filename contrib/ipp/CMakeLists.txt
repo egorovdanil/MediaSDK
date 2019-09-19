@@ -35,6 +35,8 @@ else ()
   set( defs "-D_P8 -D_ARCH_IA32" )
 endif()
 
+string( APPEND defs " -Wno-unused-command-line-argument" )
+
 set( sources "" )
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   file( GLOB_RECURSE srcs "${SRC_DIR}/*.c" "${SRC_DIR}/asm_intel64/*.s" )

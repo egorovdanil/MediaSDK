@@ -24,7 +24,7 @@ or https://software.intel.com/en-us/media-client-solutions-support.
 #define ID_BUFFER MFX_MAKEFOURCC('B','U','F','F')
 #define ID_FRAME  MFX_MAKEFOURCC('F','R','M','E')
 
-#pragma warning(disable : 4100)
+//#pragma warning(disable : 4100)
 
 SysMemFrameAllocator::SysMemFrameAllocator()
 : m_pBufferAllocator(0), m_bOwnBufferAllocator(false)

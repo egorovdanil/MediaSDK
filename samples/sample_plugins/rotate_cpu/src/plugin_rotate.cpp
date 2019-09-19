@@ -28,7 +28,7 @@ or https://software.intel.com/en-us/media-client-solutions-support.
 
 // disable "unreferenced formal parameter" warning -
 // not all formal parameters of interface functions will be used by sample plugin
-#pragma warning(disable : 4100)
+//#pragma warning(disable : 4100)
 
 // map<tuple<memid, session id>, lock count>
 typedef  std::tuple<mfxMemId, mfxHDL> UniqueMid;
