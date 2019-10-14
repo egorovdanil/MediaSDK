@@ -57,11 +57,8 @@ JERRCODE CBitStreamOutput::Attach(CBaseStreamOutput* out)
 
 JERRCODE CBitStreamOutput::Detach(void)
 {
-  if(m_pData)
-  {
-    // deallocate internal memory
-    delete[] m_pData;
-  }
+  // deallocate internal memory
+  delete[] m_pData;
 
   m_out     = 0;
   m_pData   = 0;
