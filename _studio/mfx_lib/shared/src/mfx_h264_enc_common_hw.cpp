@@ -5009,7 +5009,7 @@ mfxStatus MfxHwH264Encode::CheckMVCSeqDescQueryLike(mfxExtMVCSeqDesc * mvcSeqDes
         mvcSeqDesc->NumView = 0;
     }
 
-    if (mvcSeqDesc->NumOP > 0 && mvcSeqDesc->NumOP > 1024)
+    if (mvcSeqDesc->NumOP > 1024)
     {
         unsupported = true;
         mvcSeqDesc->NumOP = 0;
