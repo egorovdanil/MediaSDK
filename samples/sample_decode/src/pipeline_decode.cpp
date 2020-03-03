@@ -487,10 +487,7 @@ mfxStatus CDecodingPipeline::Init(sInputParams *pParams)
         MSDK_CHECK_STATUS(sts, "Plugin load failed");
     }
 
-    // Populate parameters. Involves DecodeHeader call
-    sts = InitMfxParams(pParams);
-    MSDK_CHECK_STATUS(sts, "InitMfxParams failed");
-
+    m_bVppIsUsed = IsVppRequired(pParams);
     if (m_bVppIsUsed)
         m_bDecOutSysmem = pParams->bUseHWLib ? false : true;
     else
@@ -520,6 +517,10 @@ mfxStatus CDecodingPipeline::Init(sInputParams *pParams)
 
     sts = CreateAllocator();
     MSDK_CHECK_STATUS(sts, "CreateAllocator failed");
+
+    // Populate parameters. Involves DecodeHeader call
+    sts = InitMfxParams(pParams);
+    MSDK_CHECK_STATUS(sts, "InitMfxParams failed");
 
     // in case of HW accelerated decode frames must be allocated prior to decoder initialization
     sts = AllocFrames();
@@ -706,11 +707,6 @@ mfxStatus CDecodingPipeline::InitMfxParams(sInputParams *pParams)
         {
             // parse bit stream and fill mfx params
             sts = m_pmfxDEC->DecodeHeader(&m_mfxBS, &m_mfxVideoParams);
-        }
-
-        if (!sts)
-        {
-            m_bVppIsUsed = IsVppRequired(pParams);
         }
 
         if (!sts &&
