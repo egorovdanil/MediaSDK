@@ -596,6 +596,10 @@ mfxStatus CTranscodingPipeline::DecodeOneFrame(ExtendedSurface *pExtSurface)
     if( MFX_ERR_NONE == sts && isHEVCSW)
     {
         sts = m_pmfxSession->SyncOperation(pExtSurface->Syncp, MSDK_WAIT_INTERVAL);
+        if(sts == MFX_WRN_IN_EXECUTION)
+        {
+            sts = MFX_ERR_GPU_HANG;
+        }
         HandlePossibleGpuHang(sts);
         MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "Decode: SyncOperation failed");
     }
@@ -642,6 +646,10 @@ mfxStatus CTranscodingPipeline::DecodeLastFrame(ExtendedSurface *pExtSurface)
     if( MFX_ERR_NONE == sts && isHEVCSW)
     {
         sts = m_pmfxSession->SyncOperation(pExtSurface->Syncp,  MSDK_WAIT_INTERVAL);
+        if(sts == MFX_WRN_IN_EXECUTION)
+        {
+            sts = MFX_ERR_GPU_HANG;
+        }
         HandlePossibleGpuHang(sts);
         MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "Decode: SyncOperation failed");
     }
@@ -1057,6 +1065,10 @@ mfxStatus CTranscodingPipeline::Decode()
         {
             MFX_ITT_TASK("SyncOperation");
             sts = m_pmfxSession->SyncOperation(PreEncExtSurface.Syncp, MSDK_WAIT_INTERVAL);
+            if(sts == MFX_WRN_IN_EXECUTION)
+            {
+                sts = MFX_ERR_GPU_HANG;
+            }
             HandlePossibleGpuHang(sts);
             PreEncExtSurface.Syncp = NULL;
             MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "PreEnc: SyncOperation failed");
@@ -1087,6 +1099,10 @@ mfxStatus CTranscodingPipeline::Decode()
             if(frontSurface.Syncp)
             {
                 sts = m_pmfxSession->SyncOperation(frontSurface.Syncp, MSDK_WAIT_INTERVAL);
+                if(sts == MFX_WRN_IN_EXECUTION)
+                {
+                    sts = MFX_ERR_GPU_HANG;
+                }
                 HandlePossibleGpuHang(sts);
                 MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "SyncOperation failed");
                 frontSurface.Syncp=NULL;
@@ -1168,6 +1184,10 @@ mfxStatus CTranscodingPipeline::Encode()
                 {
                     MFX_ITT_TASK("SyncOperation");
                     sts = m_pParentPipeline->m_pmfxSession->SyncOperation(DecExtSurface.Syncp, MSDK_WAIT_INTERVAL);
+                    if(sts == MFX_WRN_IN_EXECUTION)
+                    {
+                        sts = MFX_ERR_GPU_HANG;
+                    }
                     HandlePossibleGpuHang(sts);
                     MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "Encode: SyncOperation failed");
                 }
@@ -1246,6 +1266,10 @@ mfxStatus CTranscodingPipeline::Encode()
             {
                 // Sync to ensure VPP is completed to avoid flicker
                 sts = m_pmfxSession->SyncOperation(VppExtSurface.Syncp, MSDK_WAIT_INTERVAL);
+                if(sts == MFX_WRN_IN_EXECUTION)
+                {
+                    sts = MFX_ERR_GPU_HANG;
+                }
                 HandlePossibleGpuHang(sts);
                 MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "VPP: SyncOperation failed");
 
@@ -1912,6 +1936,10 @@ mfxStatus CTranscodingPipeline::PutBS()
     if(pBitstreamEx->Syncp)
     {
         sts = m_pmfxSession->SyncOperation(pBitstreamEx->Syncp, MSDK_WAIT_INTERVAL);
+        if(sts == MFX_WRN_IN_EXECUTION)
+        {
+            sts = MFX_ERR_GPU_HANG;
+        }
         HandlePossibleGpuHang(sts);
         MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "Encode: SyncOperation failed");
     }
@@ -1968,6 +1996,10 @@ mfxStatus CTranscodingPipeline::Surface2BS(ExtendedSurface* pSurf,mfxBitstreamWr
     if(pSurf->Syncp)
     {
         sts = m_pmfxSession->SyncOperation(pSurf->Syncp, MSDK_WAIT_INTERVAL);
+        if(sts == MFX_WRN_IN_EXECUTION)
+        {
+            sts = MFX_ERR_GPU_HANG;
+        }
         HandlePossibleGpuHang(sts);
         MSDK_CHECK_ERR_NONE_STATUS(sts, MFX_ERR_ABORTED, "SyncOperation failed");
         pSurf->Syncp=0;
