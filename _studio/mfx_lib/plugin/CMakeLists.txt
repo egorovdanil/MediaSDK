@@ -79,8 +79,19 @@ list( APPEND plugin_common_sources
 )
 
 set( prefix ${MSDK_STUDIO_ROOT}/shared/src )
+
+add_library(fast_copy_avx2_plugin OBJECT ${prefix}/fast_copy_avx2_impl.cpp)
+target_compile_options(fast_copy_avx2_plugin PRIVATE -mavx2)
+configure_build_variant(fast_copy_avx2_plugin none)
+
+add_library(fast_copy_sse4_plugin OBJECT ${prefix}/fast_copy_sse4_impl.cpp)
+target_compile_options(fast_copy_sse4_plugin PRIVATE -msse4.1)
+configure_build_variant(fast_copy_sse4_plugin none)
+
 list( APPEND plugin_common_sources
   ${prefix}/cm_mem_copy.cpp
+  ${prefix}/fast_copy_c_impl.cpp
+  ${prefix}/fast_copy.cpp
   ${prefix}/libmfx_allocator.cpp
   ${prefix}/libmfx_allocator_vaapi.cpp
   ${prefix}/libmfx_core.cpp
@@ -89,6 +100,8 @@ list( APPEND plugin_common_sources
   ${prefix}/libmfx_core_hw.cpp
   ${prefix}/mfx_umc_alloc_wrapper.cpp
   ${MSDK_LIB_ROOT}/cmrt_cross_platform/src/cmrt_cross_platform.cpp
+  $<TARGET_OBJECTS:fast_copy_avx2_plugin>
+  $<TARGET_OBJECTS:fast_copy_sse4_plugin>
 )
 
 set( prefix ${MSDK_LIB_ROOT}/scheduler/src )
