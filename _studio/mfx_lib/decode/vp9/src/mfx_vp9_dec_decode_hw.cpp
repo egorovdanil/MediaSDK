@@ -917,6 +917,7 @@ static mfxStatus CheckFrameInfo(mfxFrameInfo const &currInfo, mfxFrameInfo &info
             break;
 #if (MFX_VERSION >= 1031)
         case MFX_FOURCC_P016:
+        case MFX_FOURCC_Y216:
         case MFX_FOURCC_Y416:
 #endif
         case MFX_FOURCC_P010:

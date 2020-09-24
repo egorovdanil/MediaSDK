@@ -245,7 +245,9 @@ void FillVideoParam(eMFXPlatform platform, UMC_VP9_DECODER::VP9DecoderFrame cons
 #if (MFX_VERSION >= 1031)
             if (MFX_CHROMAFORMAT_YUV420 == params.mfx.FrameInfo.ChromaFormat)
                 params.mfx.FrameInfo.FourCC = MFX_FOURCC_P016;
-            else if(MFX_CHROMAFORMAT_YUV444 == params.mfx.FrameInfo.ChromaFormat)
+            else if (MFX_CHROMAFORMAT_YUV422 == params.mfx.FrameInfo.ChromaFormat)
+                params.mfx.FrameInfo.FourCC = MFX_FOURCC_Y216;
+            else if (MFX_CHROMAFORMAT_YUV444 == params.mfx.FrameInfo.ChromaFormat)
                 params.mfx.FrameInfo.FourCC = MFX_FOURCC_Y416;
 #endif
             params.mfx.FrameInfo.BitDepthLuma   = 12;
@@ -260,6 +262,7 @@ void FillVideoParam(eMFXPlatform platform, UMC_VP9_DECODER::VP9DecoderFrame cons
         if (params.mfx.FrameInfo.FourCC == MFX_FOURCC_P010
 #if (MFX_VERSION >= 1031)
             || params.mfx.FrameInfo.FourCC == MFX_FOURCC_P016
+            || params.mfx.FrameInfo.FourCC == MFX_FOURCC_Y216
             || params.mfx.FrameInfo.FourCC == MFX_FOURCC_Y416
 #endif
         )
