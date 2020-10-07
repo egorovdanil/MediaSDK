@@ -1529,7 +1529,7 @@ mfxStatus CEncodingPipeline::GetImpl(const sInputParams & params, mfxIMPL & impl
         || params.FileInputFourCC == MFX_FOURCC_Y210
 #endif
 #if (MFX_VERSION >= 1031)
-        || params.FileInputFourCC == MFX_FOURCC_Y216 || params.FileInputFourCC == MFX_FOURCC_P016
+        || params.FileInputFourCC == MFX_FOURCC_Y416 || params.FileInputFourCC == MFX_FOURCC_Y216 || params.FileInputFourCC == MFX_FOURCC_P016
 #endif
         ;
     mfxU16 Shift = params.IsSourceMSB || (isFourccNeedShift && ((params.memType != SYSTEM_MEMORY && AreGuidsEqual(params.pluginParams.pluginGuid, MFX_PLUGINID_HEVCE_HW)) || params.CodecId == MFX_CODEC_VP9));
