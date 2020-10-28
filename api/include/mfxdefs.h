@@ -32,7 +32,7 @@
 // MFX_VERSION - version of API that 'assumed' by build may be provided externally
 // if it omitted then latest stable API derived from Major.Minor is assumed
 
-
+#define MFX_VERSION_USE_LATEST
 #if !defined(MFX_VERSION)
   #if defined(MFX_VERSION_USE_LATEST)
     #define MFX_VERSION MFX_VERSION_NEXT
