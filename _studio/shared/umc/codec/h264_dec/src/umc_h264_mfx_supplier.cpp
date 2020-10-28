@@ -930,6 +930,7 @@ UMC::Status MFX_Utility::DecodeHeader(UMC::TaskSupplier * supplier, UMC::H264Vid
 
 #if (MFX_VERSION >= MFX_VERSION_NEXT)
     lpInfo->m_ignore_level_constrain = out->mfx.IgnoreLevelConstrain;
+    printf("lpInfo->m_ignore_level_constrain = %d\n", lpInfo->m_ignore_level_constrain);
 #endif
     umcRes = supplier->PreInit(lpInfo);
     if (umcRes != UMC::UMC_OK)
