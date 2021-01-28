@@ -2785,6 +2785,7 @@ Status TaskSupplier::ProcessFrameNumGap(H264Slice *pSlice, int32_t field, int32_
                 return UMC_ERR_NOT_ENOUGH_BUFFER;
             }
 
+            //ReferencedFrames.push_back(pFrame);
             pFrame->IncrementReference();
             m_UIDFrameCounter++;
             pFrame->m_UID = m_UIDFrameCounter;

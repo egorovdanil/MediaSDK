@@ -78,8 +78,8 @@ class H264DecoderFrame
         return (field) ? &m_pSlicesInfoBottom : &m_pSlicesInfo;
     }
 
-    H264DecoderFrame *m_pPreviousFrame;
-    H264DecoderFrame *m_pFutureFrame;
+    std::shared_ptr<H264DecoderFrame> m_pPreviousFrame;
+    std::shared_ptr<H264DecoderFrame> m_pFutureFrame;
 
     UMC_H264_DECODER::H264SEIPayLoad m_UserData;
 
@@ -198,20 +198,20 @@ public:
     // The following methods provide access to the H264Decoder's doubly
     // linked list of H264DecoderFrames.  Note that m_pPreviousFrame can
     // be non-NULL even for an I frame.
-    H264DecoderFrame *previous() { return m_pPreviousFrame; }
-    H264DecoderFrame *future()   { return m_pFutureFrame; }
+    H264DecoderFrame *previous() { return m_pPreviousFrame.get(); }
+    H264DecoderFrame *future()   { return m_pFutureFrame.get(); }
 
-    const H264DecoderFrame *previous() const { return m_pPreviousFrame; }
-    const H264DecoderFrame *future() const { return m_pFutureFrame; }
+    const H264DecoderFrame *previous() const { return m_pPreviousFrame.get(); }
+    const H264DecoderFrame *future() const { return m_pFutureFrame.get(); }
 
     void setPrevious(H264DecoderFrame *pPrev)
     {
-        m_pPreviousFrame = pPrev;
+        m_pPreviousFrame = std::make_shared<H264DecoderFrame>(pPrev);
     }
 
     void setFuture(H264DecoderFrame *pFut)
     {
-        m_pFutureFrame = pFut;
+        m_pFutureFrame = std::make_shared<H264DecoderFrame>(pFut);
     }
 
     bool IsDecodingStarted() const { return m_isDecodingStarted != 0;}
